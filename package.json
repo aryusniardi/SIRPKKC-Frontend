@@ -1,16 +1,9 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
-  },
+  "name": "react-material-dashboard",
+  "author": "DeviasIO",
+  "licence": "MIT",
+  "version": "1.0.0",
+  "private": false,
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -18,10 +11,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -34,5 +24,35 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "@material-ui/core": "^5.0.0-alpha.28",
+    "@material-ui/data-grid": "*",
+    "@material-ui/icons": "^5.0.0-alpha.28",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@material-ui/styles": "^4.11.4",
+    "@material-ui/x-license": "*",
+    "axios": "^0.21.1",
+    "clsx": "^1.1.1",
+    "file-saver": "^2.0.5",
+    "formik": "^2.1.5",
+    "lodash": "^4.17.19",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-chartjs-2": "^2.10.0",
+    "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
+    "react-perfect-scrollbar": "^1.5.8",
+    "react-router": "^6.0.0-beta.0",
+    "react-router-dom": "^6.0.0-beta.0",
+    "react-scripts": "^4.0.3",
+    "react-to-print": "^2.13.0",
+    "react-tooltip": "^4.2.21",
+    "uuid": "^8.3.0",
+    "xlsx": "^0.17.0",
+    "yup": "^0.29.3"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^18.2.1"
   }
 }

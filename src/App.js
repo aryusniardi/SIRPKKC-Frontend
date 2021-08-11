@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable */
 
-function App() {
+import React, {Suspense, lazy} from 'react'
+import 'react-perfect-scrollbar/dist/css/styles.css'
+import { useRoutes } from 'react-router-dom'
+import { ThemeProvider } from '@material-ui/styles'
+import GlobalStyles from './components/GlobalStyles'
+import theme from './theme'
+import Loader from './components/loader/loader'
+import routes from './Routes'
+
+const App = () => {
+  const routing = useRoutes(routes);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <Suspense fallback={<Loader />}>
+        {routing}
+      </Suspense>
+    </ThemeProvider>
   );
 }
 
-export default App;
+export default App
