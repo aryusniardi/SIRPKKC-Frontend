@@ -9,8 +9,6 @@ import {
   MapRounded as MapIcon,
   BugReportRounded as BugsIcon,
   GroupRounded as GroupIcon,
-  LocalHospitalRounded as HospitalIcon,
-  LocationCityRounded as KelurahanIcon,
 } from '@material-ui/icons';
 import DashboardCard from '../components/dashboard/DashboardCard';
 import MapKotaCimahi from 'src/components/dashboard/MapKotaCimahi';
@@ -21,6 +19,9 @@ import DashboardListToolbar from 'src/components/dashboard/DashboardListToolbar'
 import GraphDiagnosa from 'src/components/dashboard/GraphDiagnosa';
 import Loader from '../components/loader/loader';
 import axios from 'axios'
+import GraphKecamatan from 'src/components/dashboard/GraphKecamatan';
+import GraphKelurahan from 'src/components/dashboard/GraphKelurahan';
+import GraphRumahsakit from 'src/components/dashboard/GraphRumahsakit';
 
 const Dashboard = () => {
   const today = new Date()
@@ -32,7 +33,7 @@ const Dashboard = () => {
   const [pilihan, setPilihan] = useState('')
 
   const getInformasi = async() => {
-    const response = await axios.post(`http://localhost:1337/dashboard`)
+    const response = await axios.get(`http://localhost:1337/dashboard`)
     setInformasi(response.data)
   }
 
@@ -60,14 +61,17 @@ const Dashboard = () => {
         const d = await axios.post(`http://localhost:1337/index/kecamatan/${pilihan}`, data)
 
         setData(d.data);
-    } else if (wilayah === '' || pilihan === '') {
+    } else {
       const d = await axios.post(`http://localhost:1337/index`, data)
       setData(d.data);
     }
+
   }
   
   useEffect(() => {
+    setTahun(today.getFullYear())
     getInformasi()
+    getData()
   }, []);
 
   useEffect(() => {
@@ -82,62 +86,13 @@ const Dashboard = () => {
     return <Loader />;
   }
 
+  if (!(data.bulanMasuk)) {
+    getData()
+  }
+
   const filteredDiagnosa = data.diagnosa.filter((diagnosa) => {
     return !diagnosa._id.includes('benign');
   });
-
-  const cardList = [
-    {
-      Icon: (
-        <MapIcon
-          style={{ color: indigo[600], fontSize: '3.2rem', marginBottom: 8 }}
-        />
-      ),
-      color: indigo[600],
-      title: 'Jumlah Penduduk',
-      text: informasi.jumlahPenduduk
-    },
-    {
-      Icon: (
-        <ChartIcon
-          style={{ color: red[600], fontSize: '3.2rem', marginBottom: 8 }}
-        />
-      ),
-      color: red[600],
-      title: 'Jumlah Penderita',
-      text: informasi.jumlahPenderita
-    },
-    {
-      Icon: (
-        <HospitalIcon
-          style={{ color: green[600], fontSize: '3.2rem', marginBottom: 8 }}
-        />
-      ),
-      color: green[600],
-      title: 'Rumahsakit dengan Pasien Terbanyak',
-      text: informasi.rumahsakit._id
-    },
-    {
-      Icon: (
-        <KelurahanIcon
-          style={{ color: orange[600], fontSize: '3.2rem', marginBottom: 8 }}
-        />
-      ),
-      color: orange[600],
-      title: 'Kelurahan dengan Penderita Terbanyak',
-      text: informasi.kelurahan._id
-    },
-    {
-      Icon: (
-        <KelurahanIcon
-          style={{ color: yellow[600], fontSize: '3.2rem', marginBottom: 8 }}
-        />
-      ),
-      color: yellow[600],
-      title: 'Kecamatan dengan Penderita Terbanyak',
-      text: informasi.kecamatan._id
-    }
-  ];
 
   const secondCardList = [
     {
@@ -147,8 +102,8 @@ const Dashboard = () => {
         />
       ),
       color: indigo[600],
-      title: 'Jumlah Penduduk',
-      text: data.jumlahPenduduk
+      title: pilihan !== 'rumahsakit' ? 'Jumlah Penduduk' : 'Jumlan Penderita',
+      text: data.jumlahPenduduk ? data.jumlahPenduduk : '-'
     },
     {
       Icon: (
@@ -158,7 +113,7 @@ const Dashboard = () => {
       ),
       color: red[600],
       title: 'Jumlah Penderita',
-      text: data.jumlahPenderita
+      text: data.jumlahPenderita ? data.jumlahPenderita : '-'
     },
     {
       Icon: (
@@ -206,25 +161,28 @@ const Dashboard = () => {
             }}
             color="textPrimary"
           >
-            Dashboard Statistik Kasus Penderita Kanker Kota Cimahi
+            Statistik Kasus Penderita Kanker Kota Cimahi
           </Typography>
           <Grid
             container
-            spacing={3}
+            spacing={2}
             direction="row"
             justifyContent="center"
             alignItems="stretch"
           >
-            {cardList.map((list) => (
-              <Grid item lg={2.4} sm={6} xs={12} key={list.title}>
-                <DashboardCard
-                  Icon={list.Icon}
-                  itemColor={list.color}
-                  title={list.title}
-                  text={list.text}
-                />
-              </Grid>
-            ))}
+            <Grid item xs={12} md={3}>
+              <GraphRumahsakit data={informasi.rumahsakit} />
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <GraphKecamatan data={informasi.kecamatan} />
+            </Grid>
+            
+
+            <Grid item xs={12} md={6}>
+              <GraphKelurahan data={informasi.kelurahan} />
+            </Grid>
+
             <Grid item xs={12}>
               <DashboardListToolbar
                 wilayah={wilayah}

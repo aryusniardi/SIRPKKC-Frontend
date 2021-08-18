@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import React from 'react'
-import { Bar } from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2'
 import {
   Box,
   Card,
@@ -57,20 +57,7 @@ const GraphBulan = ({data, props}) =>  {
       {
         label: 'Penderita',
         data: forData,
-        backgroundColor: [
-          'rgba(63, 81, 181, 1)',
-          'rgba(63, 81, 181, 1)',
-          'rgba(63, 81, 181, 1)',
-          'rgba(63, 81, 181, 1)',
-          'rgba(63, 81, 181, 1)',
-          'rgba(63, 81, 181, 1)',
-          'rgba(63, 81, 181, 1)',
-          'rgba(63, 81, 181, 1)',
-          'rgba(63, 81, 181, 1)',
-          'rgba(63, 81, 181, 1)',
-          'rgba(63, 81, 181, 1)',
-          'rgba(63, 81, 181, 1)'
-        ],
+        
         borderColor: [
           'rgba(63, 81, 181, 1)',
           'rgba(63, 81, 181, 1)',
@@ -116,7 +103,7 @@ const GraphBulan = ({data, props}) =>  {
             position: 'relative'
           }}
         >
-          <Bar data={dataBulan} options={options} />
+          <Line data={dataBulan} options={options} />
         </Box>
       </CardContent>
     </Card>

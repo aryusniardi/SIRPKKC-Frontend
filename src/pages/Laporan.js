@@ -29,7 +29,6 @@ const Laporan = () => {
   const [tahun, setTahun] = useState();
   const [bulan, setBulan] = useState();
   const [laporan, setLaporan] = useState();
-  const today = new Date();
   const EXCEL_TYPE =
     'application/vnd.opencmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   const EXCEL_EXTENSION = '.xlsx';
@@ -41,7 +40,7 @@ const Laporan = () => {
 
   const getData = async () => {
     const data = {
-      tahun: tahun ? tahun : today.getFullYear(),
+      tahun: tahun,
       bulan: bulan
     };
 
@@ -55,10 +54,6 @@ const Laporan = () => {
   });
 
   const handleExcel = () => {
-    // console.log(laporan)
-    // console.log(JSON.parse(laporan))
-    
-    const worksheet = XLSX.utils.json_to_sheet(laporan.jenisKelamin)
     const worksheetJenisKelamin = XLSX.utils.json_to_sheet(laporan.jenisKelamin)
     const worksheetDiagnosaPasien = XLSX.utils.json_to_sheet(filteredDiagnosa)
     const worksheetMetodePembayaran = XLSX.utils.json_to_sheet(laporan.metodePembayaran);
@@ -100,7 +95,6 @@ const Laporan = () => {
   // Get Basic Informasi
   useEffect(() => {
     getInformasi();
-    setTahun(today.getFullYear());
     getData();
 
     if (!(informasi && laporan)) {

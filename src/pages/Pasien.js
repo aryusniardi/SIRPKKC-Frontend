@@ -10,7 +10,7 @@ import {getAllPasien} from '../data/pasien'
 
 const Pasien = () => {
   const [pasiens, setPasiens] = useState()
-  const [keyword, setKeyword] = useState()
+  const [keyword, setKeyword] = useState('')
   const [searchResults, setSearchResults] = useState([]);
   const filteredPasien = []
   
@@ -19,8 +19,6 @@ const Pasien = () => {
 
     setPasiens(p)
   }
-
-  console.log(keyword)
   
   useEffect(() => {
     getData()

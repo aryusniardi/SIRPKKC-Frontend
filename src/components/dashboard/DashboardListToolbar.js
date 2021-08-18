@@ -83,7 +83,7 @@ const DashboardListToolbar = ({tahun, setTahun, wilayah, setWilayah, pilihan, se
           <CardContent>
             <Formik
               initialValues={{
-                tahun: '',
+                tahun: 2020,
                 jenis: '',
                 kecamatan: '',
                 kelurahan: '',

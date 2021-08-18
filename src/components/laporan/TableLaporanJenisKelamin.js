@@ -16,9 +16,6 @@ const useStyles = makeStyles({
   root: {
     width: '100%'
   },
-  container: {
-    maxHeight: 440
-  },
   table: {
     minWidth: 700
   }
@@ -29,7 +26,7 @@ const TableLaporanJenisKelamin = ({ title, data }) => {
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
-        <Table stickyHeader>
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell
@@ -69,23 +66,6 @@ const TableLaporanJenisKelamin = ({ title, data }) => {
                 }
               </TableCell>
             </TableRow>
-            {/* 
-                <TableRow>
-                    <TableCell rowSpan={3} />
-                    <TableCell colSpan={2}>Subtotal</TableCell>
-                    <TableCell align="right">{ccyFormat(invoiceSubtotal)}</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>Tax</TableCell>
-                    <TableCell align="right">{`${(TAX_RATE * 100).toFixed(
-                    0
-                    )} %`}</TableCell>
-                    <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell colSpan={2}>Total</TableCell>
-                    <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
-                </TableRow> */}
           </TableBody>
         </Table>
       </TableContainer>
